@@ -51,7 +51,7 @@ function Home() {
                             position: 'absolute',
                             width: 100,
                             height: 50,
-                            left: 25,
+                            left: 20,
                             top: 20,
                             backgroundColor: 'green',
                             display: 'flex',
@@ -70,7 +70,7 @@ function Home() {
                 <div
                         style={{
                             position: 'absolute',
-                            width: 12,
+                            width: 10,
                             height: 80,
                             left: 13,
                             top: 20,
@@ -84,7 +84,7 @@ function Home() {
                         style={{
                             position: 'absolute',
                             width: 190,
-                            height: 12,
+                            height: 10,
                             left: 13,
                             top: 100,
                             backgroundColor: 'blue'
@@ -95,7 +95,7 @@ function Home() {
                 <div
                         style={{
                             position: 'absolute',
-                            width: 12,
+                            width: 10,
                             height: 230,
                             left: 200,
                             top: 100,
@@ -108,7 +108,7 @@ function Home() {
                         style={{
                             position: 'absolute',
                             width: 400,
-                            height: 12,
+                            height: 10,
                             left: 200,
                             top: 330,
                             backgroundColor: 'blue'
