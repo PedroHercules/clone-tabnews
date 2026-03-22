@@ -12,9 +12,9 @@ const imageStyle = {
 function Home() {
     const [gameState, setGameState] = useState("idle");
     const [obstacles, setObstacles] = useState([
-    { id: 1, top: 150, left: 300, direction: 1, speed: 2.5, minTop: 170, maxTop: 300 },
-    { id: 2, top: 210, left: 350, direction: -1, speed: 3.5, minTop: 170, maxTop: 300 },
-    { id: 3, top: 160, left: 400, direction: 1, speed: 4.2, minTop: 170, maxTop: 300 },
+    { id: 1, top: 150, left: 280, direction: 1, speed: 4.5, minTop: 170, maxTop: 300 },
+    { id: 2, top: 210, left: 370, direction: -1, speed: 5.5, minTop: 170, maxTop: 300 },
+    { id: 3, top: 160, left: 430, direction: 1, speed: 7.5, minTop: 170, maxTop: 300 },
     ]);
 
     const handleInit = () => {
@@ -25,6 +25,8 @@ function Home() {
         if (gameState !== "playing") return;
 
         const nextElement = event.relatedTarget;
+
+        if (!nextElement) return;
 
         const stillInTrail = nextElement?.closest(".trail");
 
@@ -127,6 +129,8 @@ function Home() {
                             if (gameState !== "playing") return;
 
                             const nextElement = event.relatedTarget;
+
+                            if (!nextElement) return;
 
                             const wentToTrail = nextElement?.closest(".trail");
 
