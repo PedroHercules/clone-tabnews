@@ -70,7 +70,7 @@ function Home() {
                 <div
                         style={{
                             position: 'absolute',
-                            width: 20,
+                            width: 12,
                             height: 80,
                             left: 13,
                             top: 20,
@@ -83,8 +83,8 @@ function Home() {
                 <div
                         style={{
                             position: 'absolute',
-                            width: 200,
-                            height: 20,
+                            width: 190,
+                            height: 12,
                             left: 13,
                             top: 100,
                             backgroundColor: 'blue'
@@ -95,7 +95,7 @@ function Home() {
                 <div
                         style={{
                             position: 'absolute',
-                            width: 20,
+                            width: 12,
                             height: 230,
                             left: 200,
                             top: 100,
@@ -108,7 +108,7 @@ function Home() {
                         style={{
                             position: 'absolute',
                             width: 400,
-                            height: 20,
+                            height: 12,
                             left: 200,
                             top: 330,
                             backgroundColor: 'blue'
