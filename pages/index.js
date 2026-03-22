@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const imageStyle = {
   width: '100%',
@@ -11,13 +11,24 @@ const imageStyle = {
 
 function Home() {
     const [gameState, setGameState] = useState("idle");
+    const [obstacles, setObstacles] = useState([
+    { id: 1, top: 150, left: 300, direction: 1, speed: 2.5, minTop: 170, maxTop: 300 },
+    { id: 2, top: 210, left: 350, direction: -1, speed: 3.5, minTop: 170, maxTop: 300 },
+    { id: 3, top: 160, left: 400, direction: 1, speed: 4.2, minTop: 170, maxTop: 300 },
+    ]);
 
     const handleInit = () => {
         setGameState("playing");
     }
 
     const handleTrailLeave = (event) => {
-        if (gameState === "playing" && event.target.id === "trail" && event.relatedTarget?.id !== "trail") {
+        if (gameState !== "playing") return;
+
+        const nextElement = event.relatedTarget;
+
+        const stillInTrail = nextElement?.closest(".trail");
+
+        if (!stillInTrail) {
             setGameState("lost");
         }
     }
@@ -27,6 +38,43 @@ function Home() {
             setGameState("won");
         }
     }
+
+    const handleLose = () => {
+        if (gameState === "playing") {
+            setGameState("lost");
+        }
+    }
+
+    useEffect(() => {
+        if (gameState !== "playing") return;
+
+        const interval = setInterval(() => {
+            setObstacles((prev) =>
+            prev.map((obstacle) => {
+                let nextTop = obstacle.top + obstacle.speed * obstacle.direction;
+                let nextDirection = obstacle.direction;
+
+                if (nextTop <= obstacle.minTop) {
+                nextTop = obstacle.minTop;
+                nextDirection = 1;
+                }
+
+                if (nextTop >= obstacle.maxTop) {
+                nextTop = obstacle.maxTop;
+                nextDirection = -1;
+                }
+
+                return {
+                ...obstacle,
+                top: nextTop,
+                direction: nextDirection,
+                };
+            })
+            );
+        }, 16);
+
+        return () => clearInterval(interval);
+    }, [gameState]);
     
     return (
         <>
@@ -45,6 +93,22 @@ function Home() {
                         backgroundColor: '#e5e5e5',
                     }}
                 >
+                 {obstacles.map((obstacle) => (
+                    <div
+                        key={obstacle.id}
+                        style={{
+                        position: 'absolute',
+                        top: obstacle.top,
+                        left: obstacle.left,
+                        width: 10,
+                        height: 70,
+                        backgroundColor: 'red',
+                        zIndex: 10,
+                        }}
+                        onMouseEnter={handleLose}
+                    />
+                    ))}
+
                    
                     <div
                         style={{
@@ -60,7 +124,13 @@ function Home() {
                         }}
                         onMouseEnter={handleInit}
                         onMouseLeave={(event) => {
-                            if (gameState === "playing" && event.relatedTarget?.id !== "trail") {
+                            if (gameState !== "playing") return;
+
+                            const nextElement = event.relatedTarget;
+
+                            const wentToTrail = nextElement?.closest(".trail");
+
+                            if (!wentToTrail) {
                                 setGameState("lost");
                             }
                         }}
@@ -77,7 +147,7 @@ function Home() {
                             backgroundColor: 'blue'
                         }}
                         onMouseLeave={handleTrailLeave}
-                        id="trail"
+                        className="trail"
                 />
 
                 <div
@@ -90,7 +160,7 @@ function Home() {
                             backgroundColor: 'blue'
                         }}
                         onMouseLeave={handleTrailLeave}
-                        id="trail"
+                        className="trail"
                 />
                 <div
                         style={{
@@ -102,7 +172,7 @@ function Home() {
                             backgroundColor: 'blue'
                         }}
                         onMouseLeave={handleTrailLeave}
-                        id="trail"
+                        className="trail"
                 />
                 <div
                         style={{
@@ -114,7 +184,7 @@ function Home() {
                             backgroundColor: 'blue'
                         }}
                         onMouseLeave={handleTrailLeave}
-                        id="trail"
+                        className="trail"
                 />
                     <div
                         style={{
